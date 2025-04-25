@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}All Reservations{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">All Reservations</h1>
+
+{% if reservations %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Guests</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                <tr>
+                    <td>{{ reservation.id }}</td>
+                    <td>{{ reservation.name }}</td>
+                    <td>{{ reservation.email }}</td>
+                    <td>{{ reservation.date }}</td>
+                    <td>{{ reservation.time }}</td>
+                    <td>{{ reservation.guests }}</td>
+                    <td>{{ reservation.created_at }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('delete_reservation', id=reservation.id) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        No reservations found. <a href="{{ url_for('reserve') }}">Create one now</a>.
+    </div>
+{% endif %}
+{% endblock %}

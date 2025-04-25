@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Reservation System{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to the Reservation System</h1>
+    <p class="lead">A simple and efficient way to manage your reservations.</p>
+    <hr class="my-4">
+    <p>Click below to make a new reservation or view existing ones.</p>
+    <div class="d-flex gap-2">
+        <a class="btn btn-primary btn-lg" href="{{ url_for('reserve') }}" role="button">Make Reservation</a>
+        <a class="btn btn-secondary btn-lg" href="{{ url_for('view_reservations') }}" role="button">View Reservations</a>
+    </div>
+</div>
+
+{% if reservations %}
+<div class="mt-5">
+    <h2>Recent Reservations</h2>
+    <div class="row">
+        {% for reservation in reservations[-3:] | reverse %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ reservation.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ reservation.date }} at {{ reservation.time }}</h6>
+                    <p class="card-text">
+                        Guests: {{ reservation.guests }}<br>
+                        Contact: {{ reservation.email }}
+                    </p>
+                </div>
+                <div class="card-footer text-muted">
+                    Created: {{ reservation.created_at }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
