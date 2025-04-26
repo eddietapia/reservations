@@ -170,7 +170,7 @@ This script verifies that the system properly prevents users from having overlap
 
 - Giving restaurants ability to customize their hours at the day level.
 - Custom error codes
-  - Right now just defaulted to custom http error codes, but in practice, we'd want more specific error codes so we can monitor and handle them more effectively.
+  - Right now just defaulted to standard http error codes, but in practice, we'd want more specific error codes so we can monitor and handle them more effectively.
 
 ## Database Schema
 
