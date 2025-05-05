@@ -1,7 +1,7 @@
 
 from typing import List, Optional
-from datetime import datetime, date, timedelta
-from models import Eater, Restaurant, DietaryRestriction, Table, Reservation
+from datetime import datetime, date, time, timedelta
+from models import Eater, Restaurant, RestaurantHours, DietaryRestriction, Table, Reservation
 from models import db, Endorsement, restaurant_endorsements, restriction_endorsement_mappings
 from sqlalchemy import func, and_, or_
 
@@ -17,10 +17,7 @@ def aggregate_dietary_restrictions(eaters: List[Eater]) -> set:
 
 
 def get_potential_restaurants(reservation_time: str, restrictions: set) -> List[Restaurant]:
-    """Query restaurants open at the given time, filtered by dietary restrictions if any."""
-    from models import RestaurantHours
-    from datetime import datetime, time
-    
+    """Query restaurants open at the given time, filtered by dietary restrictions if any."""     
     # Convert reservation_time string to a time object
     try:
         res_time = datetime.strptime(reservation_time, "%H:%M").time()
